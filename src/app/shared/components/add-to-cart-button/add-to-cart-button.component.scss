@@ -1,0 +1,22 @@
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .count {
+    min-width: 1.5rem;
+    text-align: center;
+  }
+
+  button {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: #f9fafb;
+    }
+  }
+}

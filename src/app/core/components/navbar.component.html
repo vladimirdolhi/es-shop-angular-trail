@@ -1,0 +1,26 @@
+<header class="nav">
+  <div class="brand">@ Your Company</div>
+
+  <nav class="links">
+    <a routerLink="/">Shop</a>
+    <a routerLink="/auth" *ngIf="!(user$ | async)">Authentication</a>
+    <a routerLink="/cart" aria-label="Cart">
+      <fa-icon icon="cart-shopping"></fa-icon>
+    </a>
+    <!-- <button class="linkish" *ngIf="user$ | async" (click)="logout()">Logout</button> -->
+  </nav>
+
+  <div class="search">
+    <fa-icon icon="search"></fa-icon>
+    <input
+      id="navbar-search"
+      type="search"
+      placeholder="Search…"
+      [(ngModel)]="query"
+      (input)="onInput()"
+    />
+    <a routerLink="/auth" *ngIf="user$ | async" (click)="logout()">
+      <fa-icon icon="right-from-bracket"></fa-icon>
+    </a>
+  </div>
+</header>

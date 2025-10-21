@@ -1,0 +1,68 @@
+.filters-form {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgb(216, 216, 223);
+  border-radius: 8px;
+  background: #faf9f9;
+}
+
+.filter-title {
+  margin: 0 0 4px;
+}
+
+.row {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.pair {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input[type='number'] {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+input[type='number']:focus {
+  outline: none;
+  border-color: #6366f1;
+//   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.checks {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+.actions .ghost {
+  background: transparent;
+  border: 1px solid #e5e7eb;
+}
+
+button {
+  border: 1px solid #dcdde0;
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+button:hover {
+  background: #e1e2e2;
+}
+
+.found {
+  color: #6b7280;
+}

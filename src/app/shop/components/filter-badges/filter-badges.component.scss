@@ -1,0 +1,35 @@
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #111827;
+}
+
+.x {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.clear {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 16px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.clear:hover {
+  background: #f3f4f6;
+}
