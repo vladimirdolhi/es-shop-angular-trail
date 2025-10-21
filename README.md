@@ -7,8 +7,8 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 1. Clone or download the project
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-project-folder>
+git clone https://github.com/vladimirdolhi/es-shop-angular-trail.git
+cd es-shop-angular-trail
 ```
 2. Install dependencies
 ```bash
