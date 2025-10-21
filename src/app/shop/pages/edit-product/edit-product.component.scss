@@ -1,0 +1,68 @@
+.edit {
+  display: grid;
+  grid-template-columns: minmax(280px, 520px) 360px;
+  gap: 24px;
+  padding: 16px;
+  align-items: start;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.group {
+  display: grid;
+  gap: 6px;
+}
+
+input[type='text'],
+textarea {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: inherit;
+}
+input[type='text']:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.ng-invalid.ng-touched:not(form) {
+  border-color: #dc2626;
+  box-shadow: none;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+button {
+  width: fit-content;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.preview img {
+  width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #f3f4f6;
+    border-radius: 8px;
+}
+
+.success {
+  color: #16a34a;
+  font-weight: 600;
+  margin: 16px;
+}

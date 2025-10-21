@@ -1,0 +1,63 @@
+<section class="edit" *ngIf="product as p">
+  <h2>Edit product info:</h2>
+    <br/>
+  <form #f="ngForm" (ngSubmit)="submit()" class="form">
+    <div class="group">
+      <label for="image">Image:</label>
+      <input id="image" name="image" type="text" [(ngModel)]="p.image" />
+    </div>
+
+    <div class="group">
+      <label for="title">Title:</label>
+      <input id="title" name="title" type="text" required [(ngModel)]="p.title" #title="ngModel" />
+      <div class="error" *ngIf="title.invalid && (title.dirty || title.touched)">
+        Title is required
+      </div>
+    </div>
+
+    <div class="group">
+      <label for="price">Price:</label>
+      <input
+        id="price"
+        name="price"
+        type="text"
+        required
+        pattern="^\d+(\.\d{1,2})?$"
+        [(ngModel)]="p.price"
+        #price="ngModel"
+      />
+      <div class="error" *ngIf="price.invalid && (price.dirty || price.touched)">
+        Price must be an integer or a decimal (e.g., 123 or 123.5)
+      </div>
+    </div>
+
+    <div class="group">
+      <label for="stock">Stock:</label>
+      <input
+        id="stock"
+        name="stock"
+        type="text"
+        required
+        pattern="^\d+$"
+        [(ngModel)]="p.stock"
+        #stock="ngModel"
+      />
+      <div class="error" *ngIf="stock.invalid && (stock.dirty || stock.touched)">
+        Stock must be an integer
+      </div>
+    </div>
+
+    <div class="group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" rows="8" [(ngModel)]="p.description"></textarea>
+    </div>
+
+    <button [disabled]="f.invalid">Submit</button>
+  </form>
+
+  <div class="preview">
+    <img [src]="p.image" [alt]="p.title" />
+  </div>
+</section>
+
+<div class="success" *ngIf="saved">Updated successfully</div>

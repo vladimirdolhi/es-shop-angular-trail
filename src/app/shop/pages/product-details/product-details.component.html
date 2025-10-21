@@ -1,0 +1,36 @@
+<section class="details" *ngIf="!loading && product; else loadingTpl">
+  <div class="media">
+    <img [src]="product.image" [alt]="product.title" />
+  </div>
+
+  <div class="info">
+    <h1 class="title">{{ product.title }}</h1>
+
+    <div class="rating">
+      {{ product.rating.rate }} ★ <small>({{ product.rating.count }} reviews)</small>
+    </div>
+
+    <span class="badge" [appAvailabilityBadge]="product.stock">
+      {{
+        product.stock === 0 ? 'Out of stock' : product.stock <= 9 ? 'Almost sold out' : 'In stock'
+      }}
+    </span>
+
+    <div class="price">Price: ${{ product.price }}</div>
+
+    <app-add-to-cart-button
+      [disabled]="product.stock === 0"
+      [product]="product"
+    ></app-add-to-cart-button>
+
+    <p class="desc">{{ product.description }}</p>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<app-reviews [reviews]="reviews"></app-reviews>
+
+<ng-template #loadingTpl>
+  <div class="loading">Loading…</div>
+</ng-template>
