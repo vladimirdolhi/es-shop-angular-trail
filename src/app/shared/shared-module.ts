@@ -4,10 +4,10 @@ import { SearchPipe } from './pipes/search-pipe';
 import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AvailabilityBadgeDerective } from './directives/availability-badge.directive';
+import { AvailabilityBadgeDirective } from './directives/availability-badge.directive';
 
 @NgModule({
-  declarations: [SearchPipe, AddToCartButtonComponent, AvailabilityBadgeDerective],
+  declarations: [SearchPipe, AddToCartButtonComponent, AvailabilityBadgeDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -15,7 +15,7 @@ import { AvailabilityBadgeDerective } from './directives/availability-badge.dire
     FontAwesomeModule,
     SearchPipe,
     AddToCartButtonComponent,
-    AvailabilityBadgeDerective,
+    AvailabilityBadgeDirective,
   ],
   imports: [CommonModule, FontAwesomeModule],
 })

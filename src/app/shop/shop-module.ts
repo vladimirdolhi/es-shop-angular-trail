@@ -12,7 +12,6 @@ import { FilterComponent } from './components/filter/filter.component';
 import { FilterBadges } from './components/filter-badges/filter-badges.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
-import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { AuthPageComponent } from './pages/auth-page/auth-page.component';
     FilterBadges,
     EditProductComponent,
     CartPageComponent,
-    AuthPageComponent,
   ],
   imports: [CommonModule, CoreModule, SharedModule, ShopRoutingModule],
 })

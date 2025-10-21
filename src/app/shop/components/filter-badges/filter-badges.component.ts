@@ -1,8 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
-
-type BadgeKey = 'priceFrom' | 'priceTo' | 'ratingFrom' | 'ratingTo' | 'inStock' | 'hasReviews';
 
 @Component({
   selector: 'app-filter-badges',

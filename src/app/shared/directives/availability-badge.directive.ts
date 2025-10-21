@@ -4,7 +4,7 @@ import { Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } fro
   selector: '[appAvailabilityBadge]',
   standalone: false,
 })
-export class AvailabilityBadgeDerective implements OnChanges {
+export class AvailabilityBadgeDirective implements OnChanges {
   @Input('appAvailabilityBadge') stock = 0;
 
   constructor(private el: ElementRef, private r: Renderer2) {}
