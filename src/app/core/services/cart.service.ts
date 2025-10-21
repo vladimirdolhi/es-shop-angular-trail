@@ -4,17 +4,6 @@ import { Observable, of, switchMap } from 'rxjs';
 import { Product } from '../../shared/models/product';
 import { CartEntry } from '../../shared/models/cart-entry';
 
-// export interface CartProduct {
-//   id: number;
-//   title: string;
-//   count: number;
-//   price: number;
-// }
-// export interface Cart {
-//   id: number;
-//   products: CartProduct[];
-// }
-
 
 @Injectable({ providedIn: 'root' })
 export class CartService {

@@ -13,7 +13,7 @@ export class AuthPageComponent implements OnInit {
   mode: 'signin' | 'signup' = 'signin';
   error = '';
 
-  form!: FormGroup; 
+  form!: FormGroup;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
 
@@ -28,7 +28,7 @@ export class AuthPageComponent implements OnInit {
           Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).+$/),
         ],
       ],
-      confirm: [''], 
+      confirm: [''],
     });
   }
 

@@ -30,14 +30,28 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   private loadCart() {
-    this.cart
-      .getCartEntries()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((entries) => {
-        this.rows = entries.map((e) => ({ ...e, total: e.price * e.count }));
-        this.totalPages = Math.max(1, Math.ceil(this.rows.length / this.pageSize));
-        this.page = Math.min(this.page, this.totalPages);
+  this.cart
+    .getCartEntries()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((entries) => {
+      const toCents = (n: number) => Math.round(n * 100);
+      const fromCents = (c: number) => c / 100;
+
+      this.rows = entries.map((e) => {
+        const priceCents = toCents(+e.price);
+        const totalCents = priceCents * e.count;
+        return {
+          id: e.id,
+          title: e.title,
+          count: e.count,
+          price: fromCents(priceCents),
+          total: fromCents(totalCents),
+        };
       });
+
+      this.totalPages = Math.max(1, Math.ceil(this.rows.length / this.pageSize));
+      this.page = Math.min(this.page, this.totalPages);
+    });
   }
 
   get pageRows(): Row[] {
