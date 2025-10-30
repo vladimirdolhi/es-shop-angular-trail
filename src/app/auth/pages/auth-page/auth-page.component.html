@@ -1,0 +1,47 @@
+<section class="auth-card">
+  <h2>{{ mode === 'signin' ? 'Sign in' : 'Sign up' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="group">
+      <label>Email address</label>
+      <input type="email" formControlName="email" placeholder="Email" />
+      <div class="error" *ngIf="formControls['email'].touched && formControls['email'].invalid">
+        Please enter a valid email.
+      </div>
+    </div>
+
+    <div class="group">
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="Password" />
+      <div class="error" *ngIf="formControls['password'].touched && formControls['password'].invalid">
+        Minimum 6 chars, must include a letter and a number.
+      </div>
+    </div>
+
+    <div class="group" *ngIf="mode === 'signup'">
+      <label>Confirm password</label>
+      <input type="password" formControlName="confirm" placeholder="Confirm password" />
+      <div class="error" *ngIf="formControls['confirm'].touched && form.value.password !== form.value.confirm">
+        Passwords do not match.
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="
+        mode === 'signin'
+          ? formControls['email'].invalid || formControls['password'].invalid
+          : form.invalid || form.value.password !== form.value.confirm
+      "
+    >
+      {{ mode === 'signin' ? 'Sign in' : 'Create account' }}
+    </button>
+  </form>
+
+  <p class="switch">
+    {{ mode === 'signin' ? "Don't have an account?" : 'Already have an account?' }}
+    <a (click)="switchAuthMode()">{{ mode === 'signin' ? 'Sign up' : 'Sign in' }}</a>
+  </p>
+
+  <p class="error banner" *ngIf="error">{{ error }}</p>
+</section>

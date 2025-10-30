@@ -1,0 +1,13 @@
+:root { --navbar-h: 64px; } 
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-container {
+  flex: 1;
+  background: #fafafa;
+  padding-bottom: 2rem;
+}

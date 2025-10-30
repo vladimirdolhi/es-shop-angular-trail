@@ -1,0 +1,33 @@
+<main class="layout">
+  <aside>
+    <app-filter
+      [initial]="initialFilters"
+      [productsQuantity]="total"
+      (applied)="onApplyFilters($event)"
+      (clearedAll)="onClearAllFilters()"
+    >
+    </app-filter>
+  </aside>
+
+  <section>
+    <app-filter-badges></app-filter-badges>
+
+    <div class="results-head">
+      <span *ngIf="total > 0">{{ total }} item(s) found</span>
+      <span *ngIf="total === 0">No products found for selected filters</span>
+    </div>
+
+    <div class="grid" *ngIf="total > 0; else emptyTpl">
+      <app-product-tile
+        *ngFor="let product of products | search : (search$ | async)!"
+        [product]="product"
+        (removed)="onRemoved($event)"
+      >
+      </app-product-tile>
+    </div>
+
+    <ng-template #emptyTpl>
+      <div class="empty">Nothing found. Try adjusting or clearing filters.</div>
+    </ng-template>
+  </section>
+</main>

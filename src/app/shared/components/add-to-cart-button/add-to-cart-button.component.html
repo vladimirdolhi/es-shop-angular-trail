@@ -1,0 +1,11 @@
+<ng-container *ngIf="count === 0; else quantity">
+  <button (click)="addFirst()" [disabled]="disabled">Add To Cart</button>
+</ng-container>
+
+<ng-template #quantity>
+  <div class="qty">
+    <button (click)="dec()" aria-label="Decrease"><fa-icon icon="minus"></fa-icon></button>
+    <span class="count">{{ count }}</span>
+    <button (click)="inc()" aria-label="Increase"><fa-icon icon="plus"></fa-icon></button>
+  </div>
+</ng-template>

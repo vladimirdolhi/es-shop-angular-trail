@@ -1,0 +1,46 @@
+<section class="cart">
+  <table class="table" *ngIf="rows.length; else empty">
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Count</th>
+        <th>Price</th>
+        <th>Total Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of pageRows">
+        <td>{{ row.id }}</td>
+        <td>{{ row.title }}</td>
+        <td class="qty">
+          <button (click)="dec(row)" [disabled]="row.count <= 1">-</button>
+          <span>{{ row.count }}</span>
+          <button (click)="inc(row)">+</button>
+        </td>
+        <td>${{ row.price }}</td>
+        <td>${{ row.total }}</td>
+        <td>
+          <button class="danger" (click)="removeRow(row)" title="Remove">
+            <fa-icon icon="xmark"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #empty>
+    <div class="empty">Your cart is empty.</div>
+  </ng-template>
+
+  <div class="pager" *ngIf="rows.length > pageSize">
+    <button
+      *ngFor="let p of [].constructor(totalPages); let i = index"
+      [class.active]="page === i + 1"
+      (click)="goToPage(i + 1)"
+    >
+      {{ i + 1 }}
+    </button>
+  </div>
+</section>
