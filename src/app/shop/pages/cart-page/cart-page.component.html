@@ -11,18 +11,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let r of pageRows">
-        <td>{{ r.id }}</td>
-        <td>{{ r.title }}</td>
+      <tr *ngFor="let row of pageRows">
+        <td>{{ row.id }}</td>
+        <td>{{ row.title }}</td>
         <td class="qty">
-          <button (click)="dec(r)" [disabled]="r.count <= 1">-</button>
-          <span>{{ r.count }}</span>
-          <button (click)="inc(r)">+</button>
+          <button (click)="dec(row)" [disabled]="row.count <= 1">-</button>
+          <span>{{ row.count }}</span>
+          <button (click)="inc(row)">+</button>
         </td>
-        <td>${{ r.price }}</td>
-        <td>${{ r.total }}</td>
+        <td>${{ row.price }}</td>
+        <td>${{ row.total }}</td>
         <td>
-          <button class="danger" (click)="removeRow(r)" title="Remove">
+          <button class="danger" (click)="removeRow(row)" title="Remove">
             <fa-icon icon="xmark"></fa-icon>
           </button>
         </td>

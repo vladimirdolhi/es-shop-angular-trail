@@ -19,15 +19,9 @@ export class AddToCartButtonComponent {
 
   ngOnInit() {
     if (!this.product) return;
-    this.cart.getCartEntry(this.product.id).subscribe({
-      next: (e) => {
-        this.count = e.count;
-        this.countChange.emit(this.count);
-      },
-      error: () => {
-        this.count = 0;
-        this.countChange.emit(0);
-      },
+    this.cart.getCartEntry(this.product.id).subscribe((entry) => {
+      this.count = entry?.count ?? 0;
+      this.countChange.emit(this.count);
     });
   }
 

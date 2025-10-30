@@ -1,44 +1,61 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Product } from '../../shared/models/product';
 import { Filters } from '../../shop/models/filters';
+import { ProductsApiService } from './products-api.service';
+import { Review } from '../../shared/models/review';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:3000';
+  constructor(private api: ProductsApiService) {}
 
-  constructor(private http: HttpClient) {}
-
-  getProducts(filters?: Partial<Filters>): Observable<Product[]> {
+  private buildParams(filters?: Partial<Filters>): HttpParams {
     let params = new HttpParams();
+    if (!filters) return params;
 
-    if (filters) {
-      if (filters.priceFrom) params = params.set('price_gte', filters.priceFrom);
-      if (filters.priceTo) params = params.set('price_lte', filters.priceTo);
-      if (filters.ratingFrom) params = params.set('rating.rate_gte', filters.ratingFrom);
-      if (filters.ratingTo) params = params.set('rating.rate_lte', filters.ratingTo);
-      if (filters.inStock) params = params.set('stock_gte', '1');
-      if (filters.hasReviews) params = params.set('rating.count_gte', '1');
+    const mapping: Record<keyof Filters, string> = {
+      priceFrom: 'price_gte',
+      priceTo: 'price_lte',
+      ratingFrom: 'rating.rate_gte',
+      ratingTo: 'rating.rate_lte',
+      inStock: 'stock_gte',
+      hasReviews: 'rating.count_gte',
+    };
+
+    for (const [key, value] of Object.entries(filters)) {
+      if (!value) continue;
+
+      const queryParam = mapping[key as keyof Filters];
+      if (!queryParam) continue;
+
+      const paramValue = typeof value === 'boolean' ? '1' : String(value);
+
+      params = params.set(queryParam, paramValue);
     }
 
-    return this.http.get<Product[]>(`${this.baseUrl}/products`, { params });
+    return params;
   }
 
-  deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/products/${id}`);
+  getProducts(filters?: Partial<Filters>): Observable<Product[]> {
+    return this.api.getProducts(this.buildParams(filters)).pipe(
+      map((products) =>
+        products.map((product) => ({
+          ...product,
+          price: typeof product.price === 'string' ? +product.price : product.price,
+          stock: typeof product.stock === 'string' ? +product.stock : product.stock,
+        }))
+      )
+    );
   }
 
-  getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.baseUrl}/products/${id}`);
+  getProductById(id: number) {
+    return this.api.getProductById(id);
   }
-
-  getReviewsByProduct(productId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/reviews`, {
-      params: new HttpParams().set('productId', productId),
-    });
+  deleteProduct(id: number) {
+    return this.api.deleteProduct(id);
   }
 
   updateProduct(p: Product) {
@@ -47,6 +64,10 @@ export class ProductService {
       price: typeof p.price === 'string' ? Number(p.price) : p.price,
       stock: typeof p.stock === 'string' ? Number(p.stock) : p.stock,
     };
-    return this.http.put<Product>(`${this.baseUrl}/products/${p.id}`, payload);
+    return this.api.updateProduct(payload);
+  }
+
+  getReviewsByProduct(productId: number): Observable<Review[]> {
+    return this.api.getReviewsByProduct(productId);
   }
 }

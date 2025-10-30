@@ -1,43 +1,28 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
 import { Product } from '../../shared/models/product';
-import { CartEntry } from '../../shared/models/cart-entry';
-
+import { CartApiService } from './cart-api.service';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private readonly base = 'http://localhost:3000';
+  constructor(private api: CartApiService) {}
 
-  constructor(private http: HttpClient) {}
-
-  getCartEntries(): Observable<CartEntry[]> {
-    return this.http.get<CartEntry[]>(`${this.base}/cart`);
+  getCartEntries() {
+    return this.api.getCartEntries();
   }
 
-  getCartEntry(id: number): Observable<CartEntry> {
-    return this.http.get<CartEntry>(`${this.base}/cart/${id}`);
+  getCartEntry(id: number) {
+    return this.api.getCartEntry(id);
   }
 
-  createCartEntry(product: Product): Observable<CartEntry> {
-    return this.http.post<CartEntry>(`${this.base}/cart`, {
-      id: product.id,
-      title: product.title,
-      count: 1,
-      price: +product.price,
-    });
+  createCartEntry(product: Product) {
+    return this.api.createCartEntry(product);
   }
 
-  updateCartEntry(product: Product, quantity: number): Observable<CartEntry> {
-    return this.http.put<CartEntry>(`${this.base}/cart/${product.id}`, {
-      id: product.id,
-      title: product.title,
-      count: quantity,
-      price: +product.price,
-    });
+  updateCartEntry(product: Product, quantity: number) {
+    return this.api.updateCartEntry(product, quantity);
   }
 
-  deleteCartEntry(id: number): Observable<unknown> {
-    return this.http.delete(`${this.base}/cart/${id}`);
+  deleteCartEntry(id: number) {
+    return this.api.deleteCartEntry(id);
   }
 }

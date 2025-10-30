@@ -1,64 +1,49 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, of, switchMap, throwError } from 'rxjs';
-import { User } from '../../shared/models/user';
-
+import { map, of, switchMap, throwError } from 'rxjs';
+import { AuthApiService } from './auth-api.service';
+import { AuthStateService } from './auth-state.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly base = 'http://localhost:3000';
-  private readonly KEY = 'auth_user';
+  constructor(private authApiService: AuthApiService, private authStateService: AuthStateService) {}
 
-  readonly user$ = new BehaviorSubject<User | null>(this.retrieveStoredUser());
-
-  constructor(private http: HttpClient) {}
-
-  private retrieveStoredUser(): User | null {
-    const raw = localStorage.getItem(this.KEY);
-    return raw ? (JSON.parse(raw) as User) : null;
-  }
-
-  private setUser(user: User | null) {
-    this.user$.next(user);
-    if (user) localStorage.setItem(this.KEY, JSON.stringify(user));
-    else localStorage.removeItem(this.KEY);
+  get user$() {
+    return this.authStateService.user$;
   }
 
   login(email: string, password: string) {
-    const params = new HttpParams().set('email', email);
-    return this.http.get<User[]>(`${this.base}/users`, { params }).pipe(
+    return this.authApiService.findUserByEmail(email).pipe(
       map((users) => users[0]),
       switchMap((user) => {
         if (!user || user.password !== password) {
           return throwError(() => new Error('Invalid credentials'));
         }
-        this.setUser(user);
+        this.authStateService.setUser(user);
         return of(user);
       })
     );
   }
 
   register(email: string, password: string) {
-    const params = new HttpParams().set('email', email);
-    return this.http.get<User[]>(`${this.base}/users`, { params }).pipe(
+    return this.authApiService.findUserByEmail(email).pipe(
       switchMap((users) => {
         if (users.length) {
           return throwError(() => new Error('Email already in use'));
         }
-        return this.http.post<User>(`${this.base}/users`, { email, password });
+        return this.authApiService.createUser(email, password);
       }),
       map((newUser) => {
-        this.setUser(newUser);
+        this.authStateService.setUser(newUser);
         return newUser;
       })
     );
   }
 
-  logout() {
-    this.setUser(null);
+  logout(): void {
+    this.authStateService.logout();
   }
 
   isAuthenticated(): boolean {
-    return !!this.user$.value;
+    return this.authStateService.isAuthenticated();
   }
 }

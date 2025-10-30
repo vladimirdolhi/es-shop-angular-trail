@@ -37,13 +37,13 @@ export class CartPageComponent implements OnInit, OnDestroy {
       const toCents = (n: number) => Math.round(n * 100);
       const fromCents = (c: number) => c / 100;
 
-      this.rows = entries.map((e) => {
-        const priceCents = toCents(+e.price);
-        const totalCents = priceCents * e.count;
+      this.rows = entries.map((entry) => {
+        const priceCents = toCents(+entry.price);
+        const totalCents = priceCents * entry.count;
         return {
-          id: e.id,
-          title: e.title,
-          count: e.count,
+          id: entry.id,
+          title: entry.title,
+          count: entry.count,
           price: fromCents(priceCents),
           total: fromCents(totalCents),
         };
@@ -59,33 +59,33 @@ export class CartPageComponent implements OnInit, OnDestroy {
     return this.rows.slice(start, start + this.pageSize);
   }
 
-  inc(r: Row) {
+  inc(row: Row) {
     this.cart
       .updateCartEntry(
         {
-          id: r.id,
-          title: r.title,
-          price: r.price,
+          id: row.id,
+          title: row.title,
+          price: row.price,
           description: '',
           image: '',
           stock: 0,
           rating: { rate: 0, count: 0 },
         },
-        r.count + 1
+        row.count + 1
       )
       .subscribe(() => this.loadCart());
   }
-  dec(r: Row) {
-    const next = r.count - 1;
+  dec(row: Row) {
+    const next = row.count - 1;
     if (next <= 0) {
-      this.cart.deleteCartEntry(r.id).subscribe(() => this.loadCart());
+      this.cart.deleteCartEntry(row.id).subscribe(() => this.loadCart());
     } else {
       this.cart
         .updateCartEntry(
           {
-            id: r.id,
-            title: r.title,
-            price: r.price,
+            id: row.id,
+            title: row.title,
+            price: row.price,
             description: '',
             image: '',
             stock: 0,

@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { Filters } from '../../models/filters';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-filter',
@@ -25,7 +24,7 @@ export class FilterComponent implements OnInit, OnChanges {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({

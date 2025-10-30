@@ -19,8 +19,8 @@
 
     <div class="grid" *ngIf="total > 0; else emptyTpl">
       <app-product-tile
-        *ngFor="let p of products | search : (search$ | async)!"
-        [product]="p"
+        *ngFor="let product of products | search : (search$ | async)!"
+        [product]="product"
         (removed)="onRemoved($event)"
       >
       </app-product-tile>

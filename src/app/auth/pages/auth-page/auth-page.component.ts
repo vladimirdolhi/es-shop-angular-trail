@@ -32,9 +32,10 @@ export class AuthPageComponent implements OnInit {
     });
   }
 
-  get f() {
+  get formControls() {
     return this.form.controls;
   }
+
   switchAuthMode() {
     this.mode = this.mode === 'signin' ? 'signup' : 'signin';
     this.error = '';
